@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InSAR Web Visualization Platform</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>InSAR Web Visualization Platform</h1>
+            <p class="subtitle">Sentinel-1 & InSAR 데이터 시각화</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Sidebar: Sentinel-1 목록 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Sentinel-1 데이터</h2>
+                <div class="data-count">
+                    <span id="scene-count">0</span> 씬
+                </div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="날짜 또는 ID 검색...">
+            </div>
+
+            <div class="sentinel-list" id="sentinel-list">
+                <!-- Sentinel-1 목록이 여기에 동적으로 추가됩니다 -->
+                <div class="loading">데이터 로딩 중...</div>
+            </div>
+        </aside>
+
+        <!-- Right Panel: 지도 -->
+        <main class="map-container">
+            <div id="map"></div>
+
+            <!-- 지도 컨트롤 -->
+            <div class="map-controls">
+                <button id="toggle-insar-btn" class="control-btn active">
+                    <span class="btn-icon">📍</span>
+                    InSAR 포인트
+                </button>
+                <button id="reset-view-btn" class="control-btn">
+                    <span class="btn-icon">🏠</span>
+                    초기 화면
+                </button>
+            </div>
+
+            <!-- 레전드 -->
+            <div class="map-legend" id="legend">
+                <h3>변위량 (mm/year)</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #d73027;"></span>
+                        <span>&lt; -10</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #fc8d59;"></span>
+                        <span>-10 ~ -5</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #fee090;"></span>
+                        <span>-5 ~ 0</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #e0f3f8;"></span>
+                        <span>0 ~ 5</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #91bfdb;"></span>
+                        <span>5 ~ 10</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #4575b4;"></span>
+                        <span>&gt; 10</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 시계열 그래프 모달 -->
+    <div id="chart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>시계열 그래프</h2>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="point-info" id="point-info">
+                    <!-- 포인트 정보 -->
+                </div>
+                <canvas id="timeseries-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/chart.js"></script>
+</body>
+</html>

@@ -250,15 +250,138 @@ InSAR_Web_dem/
 4. 실제 데이터 통합
 5. 배포
 
-## 10. 질문 사항
+## 10. 프로젝트 사양 (확정)
 
-- Sentinel-1 썸네일은 어떤 형식으로 준비되어 있나요? (PNG, JPG, GeoTIFF?)
-- InSAR 결과물 현재 포맷은 무엇인가요? (HDF5, NetCDF, GeoTIFF, ...)
-- 예상 데이터 규모는? (Sentinel-1 씬 개수, InSAR 포인트 개수)
-- 호스팅 환경은? (로컬 서버, 클라우드, GitHub Pages 등)
-- 동시 사용자 수 예상?
+### 10.1 현재 데이터 현황
+
+**Sentinel-1 데이터**:
+- 썸네일 없음 (TIFF 파일만 보유)
+- 형식: `.SAFE` 폴더 내 `s1a-iw2-slc-vv-*.tiff`
+- 총 20개 씬 처리 완료
+
+**InSAR 결과물**:
+- 포맷: NetCDF (.nc)
+- 필터링된 포인트: 191개
+- 시계열 데이터 포함
+
+**호스팅**:
+- 1차: Windows 노트북 로컬 서버
+- 2차: GitHub Pages (가능하면)
+
+**사용자**:
+- 회사 데모용
+- 예상 동시 접속: 최대 10명
+
+### 10.2 Sentinel-1 시각화 솔루션
+
+썸네일이 없으므로 다음 옵션 고려:
+
+**옵션 1: Copernicus API로 Quicklook 다운로드 (추천)**
+```python
+# Copernicus Data Space에서 썸네일 검색/다운로드
+# API 키 필요, 무료
+```
+- 장점: 공식 썸네일, 빠름
+- 단점: API 설정 필요, 인터넷 연결 필요
+
+**옵션 2: TIFF → PNG 썸네일 변환**
+```python
+# GDAL/rasterio로 TIFF 읽어서 PNG 생성
+# 간단한 histogram stretching 적용
+```
+- 장점: 오프라인 가능, 커스터마이징 가능
+- 단점: SAR 데이터라 시각화 의미 제한적
+
+**옵션 3: 썸네일 없이 텍스트 목록만 표시**
+```
+📡 S1A_IW_SLC__1SDV_20240927T093227
+   날짜: 2024-09-27 09:32:27
+   궤도: Ascending
+```
+- 장점: 가장 간단, 데모에 충분할 수 있음
+- 단점: 시각적 매력 부족
+
+**권장사항**:
+- **단기 (데모)**: 옵션 3 (텍스트 목록) → 빠르게 구현
+- **중기**: 옵션 2 (TIFF → PNG) → Python 스크립트 추가
+- **장기**: 옵션 1 (API) → 자동화
+
+### 10.3 NetCDF → GeoJSON 변환 전략
+
+**필요 작업**:
+1. NetCDF 파일 구조 분석
+2. 좌표(lat/lon) 추출
+3. 시계열 데이터 추출
+4. GeoJSON 포맷으로 변환
+
+**Python 스크립트 예시**:
+```python
+import xarray as xr
+import json
+
+# NetCDF 읽기
+ds = xr.open_dataset('insar_results.nc')
+
+# GeoJSON 생성
+geojson = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+# 각 포인트 처리
+for i in range(len(ds.lat)):
+    feature = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [float(ds.lon[i]), float(ds.lat[i])]
+        },
+        "properties": {
+            "point_id": f"P{i:03d}",
+            "timeseries": [...]  # NetCDF에서 추출
+        }
+    }
+    geojson["features"].append(feature)
+
+# 저장
+with open('insar_points.geojson', 'w') as f:
+    json.dump(geojson, f)
+```
+
+### 10.4 호스팅 전략
+
+**Phase 1: 로컬 개발 (Windows 노트북)**
+```bash
+# Python 간단한 HTTP 서버
+python -m http.server 8000
+
+# 또는 Node.js
+npx serve
+```
+
+**Phase 2: GitHub Pages 배포**
+- 정적 사이트이므로 가능
+- 데이터 규모:
+  - 191 포인트 GeoJSON: ~50-200KB (시계열 포함)
+  - 20개 썸네일: ~2-5MB (있다면)
+  - 전체: <10MB → GitHub 용량 제한 OK
+- 장점: 무료, HTTPS, 안정적
+- 단점: 공개 저장소 (private 가능하지만 Pro 필요)
+
+**선택사항**:
+- 회사 내부망만 접속: 로컬 서버
+- 외부 공유 필요: GitHub Pages (private repo)
+
+### 10.5 성능 고려사항
+
+데이터 규모가 작으므로 (20개 씬, 191 포인트):
+- 클러스터링 불필요
+- 모든 데이터 한번에 로드 가능
+- 데이터베이스 불필요
+- 단순 JSON/GeoJSON 파일로 충분
 
 ---
 
 **문서 작성일**: 2025-11-06
-**버전**: 1.0
+**최종 업데이트**: 2025-11-06
+**버전**: 1.1
