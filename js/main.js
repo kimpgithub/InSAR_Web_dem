@@ -17,7 +17,9 @@ const AppState = {
 const Config = {
     dataPath: {
         sentinel: 'data/processed/sentinel_list.json',
-        insar: 'data/processed/subsidence_filtered_subsidence_points.geojson'
+        insar: 'data/processed/subsidence_filtered_subsidence_points.geojson',
+        // 실제 데이터가 없을 때 사용할 샘플 데이터
+        sampleInsar: 'data/processed/sample_insar_points.geojson'
     },
     defaultCenter: [37.5, 127.0], // 기본 중심 (한국)
     defaultZoom: 8
@@ -53,12 +55,23 @@ async function initApp() {
 async function loadData() {
     console.log('📥 데이터 로딩 중...');
 
-    // InSAR 데이터 로드
+    // InSAR 데이터 로드 (실제 데이터 → 샘플 데이터 순으로 시도)
     try {
-        const insarResponse = await fetch(Config.dataPath.insar);
+        let insarResponse = await fetch(Config.dataPath.insar);
+
+        // 실제 데이터가 없으면 샘플 데이터 시도
         if (!insarResponse.ok) {
-            throw new Error(`InSAR 데이터 로드 실패: ${insarResponse.status}`);
+            console.warn('실제 InSAR 데이터 없음, 샘플 데이터 로드 시도...');
+            insarResponse = await fetch(Config.dataPath.sampleInsar);
+
+            if (!insarResponse.ok) {
+                throw new Error('샘플 데이터도 로드 실패');
+            }
+            console.log('📌 샘플 InSAR 데이터 사용');
+        } else {
+            console.log('📌 실제 InSAR 데이터 사용');
         }
+
         AppState.insarData = await insarResponse.json();
         console.log(`✓ InSAR 포인트 ${AppState.insarData.features.length}개 로드`);
 
@@ -70,7 +83,7 @@ async function loadData() {
 
     } catch (error) {
         console.error('InSAR 데이터 로드 오류:', error);
-        showWarning('InSAR 데이터를 로드할 수 없습니다. 샘플 데이터를 확인하세요.');
+        showWarning('InSAR 데이터를 로드할 수 없습니다. 데이터 파일을 확인하세요.');
     }
 
     // Sentinel-1 데이터 로드
@@ -163,6 +176,24 @@ function setupEventListeners() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         searchInput.addEventListener('input', handleSearch);
+    }
+
+    // 통계 패널 토글
+    const toggleStatsBtn = document.getElementById('toggle-stats-btn');
+    if (toggleStatsBtn) {
+        toggleStatsBtn.addEventListener('click', toggleStatsPanel);
+    }
+
+    // 통계 패널 닫기
+    const closeStatsBtn = document.getElementById('close-stats');
+    if (closeStatsBtn) {
+        closeStatsBtn.addEventListener('click', closeStatsPanel);
+    }
+
+    // CSV 내보내기
+    const exportCsvBtn = document.getElementById('export-csv-btn');
+    if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', exportToCSV);
     }
 }
 

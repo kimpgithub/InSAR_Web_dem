@@ -56,10 +56,29 @@
                     <span class="btn-icon">📍</span>
                     InSAR 포인트
                 </button>
+                <button id="toggle-stats-btn" class="control-btn">
+                    <span class="btn-icon">📊</span>
+                    통계
+                </button>
+                <button id="export-csv-btn" class="control-btn">
+                    <span class="btn-icon">💾</span>
+                    CSV 저장
+                </button>
                 <button id="reset-view-btn" class="control-btn">
                     <span class="btn-icon">🏠</span>
                     초기 화면
                 </button>
+            </div>
+
+            <!-- 통계 패널 -->
+            <div class="stats-panel" id="stats-panel" style="display: none;">
+                <div class="stats-header">
+                    <h3>데이터 통계</h3>
+                    <button class="close-stats-btn" id="close-stats">&times;</button>
+                </div>
+                <div class="stats-content" id="stats-content">
+                    <div class="stats-loading">통계 계산 중...</div>
+                </div>
             </div>
 
             <!-- 레전드 -->
@@ -121,5 +140,6 @@
     <script src="js/map.js"></script>
     <script src="js/sidebar.js"></script>
     <script src="js/chart.js"></script>
+    <script src="js/stats.js"></script>
 </body>
 </html>
