@@ -9,6 +9,7 @@ const AppState = {
     insarData: null,
     map: null,
     insarLayer: null,
+    sentinelBoundsLayer: null,
     currentChart: null,
     selectedSentinel: null
 };
@@ -218,11 +219,40 @@ function toggleInsarLayer() {
  * 지도 초기 화면으로 리셋
  */
 function resetMapView() {
+    console.log('🔄 화면 초기화 중...');
+
+    // 1. 센티넬 경계 레이어 제거 (포인트 클릭 방해 해결)
+    clearSentinelBounds();
+
+    // 2. 선택된 센티넬 아이템 하이라이트 제거
+    AppState.selectedSentinel = null;
+    document.querySelectorAll('.sentinel-item').forEach(el => {
+        el.classList.remove('active');
+    });
+
+    // 3. 차트 모달 닫기
+    closeModal();
+
+    // 4. 통계 패널 닫기
+    closeStatsPanel();
+
+    // 5. InSAR 레이어 표시 확인 (숨겨져 있으면 다시 표시)
+    if (AppState.insarLayer && !AppState.map.hasLayer(AppState.insarLayer)) {
+        AppState.map.addLayer(AppState.insarLayer);
+        const toggleInsarBtn = document.getElementById('toggle-insar-btn');
+        if (toggleInsarBtn) {
+            toggleInsarBtn.classList.add('active');
+        }
+    }
+
+    // 6. 맵 뷰를 InSAR 데이터 범위로 리셋
     if (AppState.insarData && AppState.insarData.features.length > 0) {
         fitMapToInsarData();
     } else {
         AppState.map.setView(Config.defaultCenter, Config.defaultZoom);
     }
+
+    console.log('✅ 화면 초기화 완료');
 }
 
 /**

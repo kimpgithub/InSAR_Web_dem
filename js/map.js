@@ -252,7 +252,8 @@ function showSentinelBounds(sentinelItem) {
         {
             color: '#3498db',
             weight: 2,
-            fillOpacity: 0.1
+            fillOpacity: 0.1,
+            interactive: false  // 클릭 이벤트를 통과시켜 아래 포인트 클릭 가능하게 함
         }
     );
 
