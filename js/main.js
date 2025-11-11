@@ -77,6 +77,24 @@ async function loadData() {
         AppState.insarData = await insarResponse.json();
         console.log(`✓ InSAR 포인트 ${AppState.insarData.features.length}개 로드`);
 
+        // 로드된 데이터 확인 (디버깅)
+        if (AppState.insarData.features.length > 0) {
+            const firstPoint = AppState.insarData.features[0];
+            const coords = firstPoint.geometry.coordinates;
+            const props = firstPoint.properties;
+            console.log('📍 첫 번째 포인트 정보:');
+            console.log(`   좌표: [${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}]`);
+            console.log(`   ID: ${props.point_id || props.id}`);
+            console.log(`   Velocity: ${props.velocity?.toFixed(2)} mm/year`);
+
+            // 실제 데이터 vs 샘플 데이터 구분
+            if (props.point_id && props.point_id.startsWith('P')) {
+                console.warn('⚠️  샘플 더미 데이터가 로드되었습니다!');
+            } else {
+                console.log('✅ 실제 InSAR 데이터가 로드되었습니다!');
+            }
+        }
+
         // timeseries 데이터 구조 변환 (dates 배열 + displacement_mm 배열 → [{date, displacement}] 형식)
         transformTimeseriesData(AppState.insarData);
 
