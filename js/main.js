@@ -22,8 +22,9 @@ const Config = {
         // 실제 데이터가 없을 때 사용할 샘플 데이터
         sampleInsar: 'data/processed/sample_insar_points.geojson'
     },
-    defaultCenter: [37.5, 127.0], // 기본 중심 (한국)
-    defaultZoom: 8
+    // AOI 중심점 (InSAR 처리 영역: 126.971-126.997, 37.403-37.420)
+    defaultCenter: [37.4115, 126.984], // 서울 강남구
+    defaultZoom: 15  // 작은 AOI를 위한 높은 줌 레벨
 };
 
 /**
@@ -113,10 +114,11 @@ async function loadData() {
 
 /**
  * 샘플 Sentinel-1 데이터 생성 (테스트용)
+ * InSAR 처리 코드의 실제 AOI 기반
  */
 function generateSampleSentinelData() {
     const samples = [];
-    const baseDate = new Date('2024-01-01');
+    const baseDate = new Date('2024-01-07');
 
     for (let i = 0; i < 20; i++) {
         const date = new Date(baseDate);
@@ -127,13 +129,13 @@ function generateSampleSentinelData() {
             date: date.toISOString().split('T')[0],
             time: '09:32:27',
             mission: 'S1A',
-            orbit_direction: i % 2 === 0 ? 'ascending' : 'descending',
-            orbit_number: 55849 + i,
+            orbit_direction: 'ascending',  // 실제 데이터는 모두 ascending
+            orbit_number: 51999 + i * 175,
             bounds: {
-                north: 37.6,
-                south: 37.4,
-                east: 127.1,
-                west: 126.9
+                north: 37.420,
+                south: 37.403,
+                east: 126.997,
+                west: 126.971
             }
         });
     }

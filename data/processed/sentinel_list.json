@@ -1,14 +1,343 @@
 {
   "metadata": {
     "total_scenes": 20,
-    "created": "2025-11-06T04:00:00",
-    "source_directory": "sample_data",
-    "area": "Seoul metropolitan area"
+    "created": "2024-01-07",
+    "source": "PyGMTSAR SBAS Processing",
+    "area": "Seoul Gangnam District (126.971-126.997, 37.403-37.420)",
+    "mission": "Sentinel-1A",
+    "mode": "IW",
+    "subswath": "IW2",
+    "polarization": "VV",
+    "reference_date": "2024-05-06"
   },
   "sentinel_data": [
     {
-      "id": "S1A_IW_SLC__1SDV_20240101T093227_20240101T093253_055849_06D358_5184",
-      "date": "2024-01-01",
+      "id": "S1A_IW_SLC__1SDV_20240107T093228_20240107T093254_051999_0648A4_0C4A",
+      "date": "2024-01-07",
+      "time": "09:32:28",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "051999",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240119T093227_20240119T093253_052174_064E90_938E",
+      "date": "2024-01-19",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "052174",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240131T093227_20240131T093253_052349_06547C_DCE0",
+      "date": "2024-01-31",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "052349",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240212T093227_20240212T093253_052524_065A60_9CAE",
+      "date": "2024-02-12",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "052524",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240224T093227_20240224T093253_052699_066052_2665",
+      "date": "2024-02-24",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "052699",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240307T093227_20240307T093253_052874_06664C_EEA6",
+      "date": "2024-03-07",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "052874",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240319T093227_20240319T093253_053049_066C91_3707",
+      "date": "2024-03-19",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "053049",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240331T093227_20240331T093254_053224_067335_41B7",
+      "date": "2024-03-31",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "053224",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240412T093226_20240412T093252_053399_067A19_A005",
+      "date": "2024-04-12",
+      "time": "09:32:26",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "053399",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240424T093228_20240424T093254_053574_0680F6_B0CE",
+      "date": "2024-04-24",
+      "time": "09:32:28",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "053574",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240506T093228_20240506T093254_053749_0687E1_23B2",
+      "date": "2024-05-06",
+      "time": "09:32:28",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "053749",
+      "is_reference": true,
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240530T093228_20240530T093254_054099_06940D_4116",
+      "date": "2024-05-30",
+      "time": "09:32:28",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "054099",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240705T093226_20240705T093252_054624_06A640_16F9",
+      "date": "2024-07-05",
+      "time": "09:32:26",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "054624",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240717T093226_20240717T093252_054799_06AC4E_A428",
+      "date": "2024-07-17",
+      "time": "09:32:26",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "054799",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240729T093225_20240729T093252_054974_06B26A_7F06",
+      "date": "2024-07-29",
+      "time": "09:32:25",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "054974",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240810T093225_20240810T093252_055149_06B88C_E3F7",
+      "date": "2024-08-10",
+      "time": "09:32:25",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "055149",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240822T093226_20240822T093252_055324_06BEF8_E139",
+      "date": "2024-08-22",
+      "time": "09:32:26",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "055324",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240903T093226_20240903T093252_055499_06C57F_1AE2",
+      "date": "2024-09-03",
+      "time": "09:32:26",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "055499",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240915T093227_20240915T093253_055674_06CC6A_2AD0",
+      "date": "2024-09-15",
+      "time": "09:32:27",
+      "mission": "S1A",
+      "mode": "IW",
+      "product": "SLC",
+      "polarization": "1SDV",
+      "orbit_direction": "ascending",
+      "orbit_number": "055674",
+      "bounds": {
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
+      }
+    },
+    {
+      "id": "S1A_IW_SLC__1SDV_20240927T093227_20240927T093253_055849_06D358_5184",
+      "date": "2024-09-27",
       "time": "09:32:27",
       "mission": "S1A",
       "mode": "IW",
@@ -17,333 +346,10 @@
       "orbit_direction": "ascending",
       "orbit_number": "055849",
       "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240113T093227_20240113T093253_055850_06D359_5185",
-      "date": "2024-01-13",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055850",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240125T093227_20240125T093253_055851_06D360_5186",
-      "date": "2024-01-25",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055851",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240206T093227_20240206T093253_055852_06D361_5187",
-      "date": "2024-02-06",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055852",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240218T093227_20240218T093253_055853_06D362_5188",
-      "date": "2024-02-18",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055853",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240301T093227_20240301T093253_055854_06D363_5189",
-      "date": "2024-03-01",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055854",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240313T093227_20240313T093253_055855_06D364_5190",
-      "date": "2024-03-13",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055855",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240325T093227_20240325T093253_055856_06D365_5191",
-      "date": "2024-03-25",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055856",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240406T093227_20240406T093253_055857_06D366_5192",
-      "date": "2024-04-06",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055857",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240418T093227_20240418T093253_055858_06D367_5193",
-      "date": "2024-04-18",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055858",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240430T093227_20240430T093253_055859_06D368_5194",
-      "date": "2024-04-30",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055859",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240512T093227_20240512T093253_055860_06D369_5195",
-      "date": "2024-05-12",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055860",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240524T093227_20240524T093253_055861_06D370_5196",
-      "date": "2024-05-24",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055861",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240605T093227_20240605T093253_055862_06D371_5197",
-      "date": "2024-06-05",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055862",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240617T093227_20240617T093253_055863_06D372_5198",
-      "date": "2024-06-17",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055863",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240629T093227_20240629T093253_055864_06D373_5199",
-      "date": "2024-06-29",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055864",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240711T093227_20240711T093253_055865_06D374_5200",
-      "date": "2024-07-11",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055865",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240723T093227_20240723T093253_055866_06D375_5201",
-      "date": "2024-07-23",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055866",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240804T093227_20240804T093253_055867_06D376_5202",
-      "date": "2024-08-04",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "ascending",
-      "orbit_number": "055867",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
-      }
-    },
-    {
-      "id": "S1A_IW_SLC__1SDV_20240816T093227_20240816T093253_055868_06D377_5203",
-      "date": "2024-08-16",
-      "time": "09:32:27",
-      "mission": "S1A",
-      "mode": "IW",
-      "product": "SLC",
-      "polarization": "1SDV",
-      "orbit_direction": "descending",
-      "orbit_number": "055868",
-      "bounds": {
-        "north": 37.6,
-        "south": 37.4,
-        "east": 127.1,
-        "west": 126.9
+        "north": 37.420,
+        "south": 37.403,
+        "east": 126.997,
+        "west": 126.971
       }
     }
   ]
