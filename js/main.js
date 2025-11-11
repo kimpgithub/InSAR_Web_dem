@@ -140,7 +140,9 @@ async function loadData() {
 function transformTimeseriesData(geojsonData) {
     if (!geojsonData || !geojsonData.features) return;
 
-    geojsonData.features.forEach(feature => {
+    console.log('🔄 timeseries 데이터 구조 변환 시작...');
+
+    geojsonData.features.forEach((feature, featureIndex) => {
         const props = feature.properties;
 
         // timeseries가 객체 형식이면 배열로 변환
@@ -148,15 +150,34 @@ function transformTimeseriesData(geojsonData) {
             const dates = props.timeseries.dates;
             const displacements = props.timeseries.displacement_mm;
 
+            // 첫 번째 포인트만 디버깅 로그
+            if (featureIndex === 0) {
+                console.log('변환 전 timeseries 샘플:');
+                console.log('  dates[0]:', dates[0], 'type:', typeof dates[0]);
+                console.log('  displacement_mm[0]:', displacements[0]);
+            }
+
             const transformedTimeseries = [];
             for (let i = 0; i < dates.length; i++) {
+                const formattedDate = formatDate(dates[i]);
+
+                // 첫 번째 포인트의 첫 3개 날짜만 로그
+                if (featureIndex === 0 && i < 3) {
+                    console.log(`  변환 [${i}]:`, dates[i], '→', formattedDate);
+                }
+
                 transformedTimeseries.push({
-                    date: formatDate(dates[i]), // YYYYMMDD → YYYY-MM-DD
+                    date: formattedDate,
                     displacement: displacements[i]
                 });
             }
 
             props.timeseries = transformedTimeseries;
+
+            // 첫 번째 포인트만 변환 후 결과 확인
+            if (featureIndex === 0) {
+                console.log('변환 후 timeseries 샘플:', transformedTimeseries.slice(0, 3));
+            }
         }
 
         // 좌표 정보 추가 (팝업에서 사용)
@@ -177,20 +198,37 @@ function transformTimeseriesData(geojsonData) {
  * 날짜 형식 변환: YYYYMMDD → YYYY-MM-DD
  */
 function formatDate(dateStr) {
-    if (typeof dateStr !== 'string') return dateStr;
-
-    // 이미 YYYY-MM-DD 형식이면 그대로 반환
-    if (dateStr.includes('-')) return dateStr;
-
-    // YYYYMMDD 형식이면 변환
-    if (dateStr.length === 8) {
-        const year = dateStr.substring(0, 4);
-        const month = dateStr.substring(4, 6);
-        const day = dateStr.substring(6, 8);
-        return `${year}-${month}-${day}`;
+    if (!dateStr) {
+        console.error('formatDate: Empty input');
+        return 'N/A';
     }
 
-    return dateStr;
+    // 문자열로 변환
+    const str = String(dateStr).trim();
+
+    // 이미 YYYY-MM-DD 형식이면 그대로 반환
+    if (str.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return str;
+    }
+
+    // YYYYMMDD 형식이면 변환 (8자리 숫자)
+    if (str.match(/^\d{8}$/)) {
+        const year = str.substring(0, 4);
+        const month = str.substring(4, 6);
+        const day = str.substring(6, 8);
+        const result = `${year}-${month}-${day}`;
+
+        // 유효성 검증
+        if (result.includes('NaN')) {
+            console.error('formatDate: NaN in result:', result, 'from:', str);
+            return str;
+        }
+
+        return result;
+    }
+
+    console.warn('formatDate: Unexpected format:', str);
+    return str;
 }
 
 /**
