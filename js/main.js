@@ -18,7 +18,7 @@ const AppState = {
 const Config = {
     dataPath: {
         sentinel: 'data/processed/sentinel_list.json',
-        insar: 'data/processed/subsidence_filtered_subsidence_points.geojson',
+        insar: 'data/processed/subsidence_timeseries_subsidence_points_timeseries.geojson',
         // 실제 데이터가 없을 때 사용할 샘플 데이터
         sampleInsar: 'data/processed/sample_insar_points.geojson'
     },
@@ -77,6 +77,9 @@ async function loadData() {
         AppState.insarData = await insarResponse.json();
         console.log(`✓ InSAR 포인트 ${AppState.insarData.features.length}개 로드`);
 
+        // timeseries 데이터 구조 변환 (dates 배열 + displacement_mm 배열 → [{date, displacement}] 형식)
+        transformTimeseriesData(AppState.insarData);
+
         // 지도에 InSAR 데이터 표시
         displayInsarData(AppState.insarData);
 
@@ -110,6 +113,66 @@ async function loadData() {
         AppState.sentinelData = generateSampleSentinelData();
         displaySentinelList(AppState.sentinelData);
     }
+}
+
+/**
+ * timeseries 데이터 구조 변환
+ * {dates: [...], displacement_mm: [...]} → [{date, displacement}, ...]
+ */
+function transformTimeseriesData(geojsonData) {
+    if (!geojsonData || !geojsonData.features) return;
+
+    geojsonData.features.forEach(feature => {
+        const props = feature.properties;
+
+        // timeseries가 객체 형식이면 배열로 변환
+        if (props.timeseries && props.timeseries.dates && props.timeseries.displacement_mm) {
+            const dates = props.timeseries.dates;
+            const displacements = props.timeseries.displacement_mm;
+
+            const transformedTimeseries = [];
+            for (let i = 0; i < dates.length; i++) {
+                transformedTimeseries.push({
+                    date: formatDate(dates[i]), // YYYYMMDD → YYYY-MM-DD
+                    displacement: displacements[i]
+                });
+            }
+
+            props.timeseries = transformedTimeseries;
+        }
+
+        // 좌표 정보 추가 (팝업에서 사용)
+        if (!props.coordinates && feature.geometry && feature.geometry.coordinates) {
+            props.coordinates = feature.geometry.coordinates;
+        }
+
+        // point_id가 없으면 id 사용
+        if (!props.point_id && props.id !== undefined) {
+            props.point_id = props.id;
+        }
+    });
+
+    console.log('✓ timeseries 데이터 구조 변환 완료');
+}
+
+/**
+ * 날짜 형식 변환: YYYYMMDD → YYYY-MM-DD
+ */
+function formatDate(dateStr) {
+    if (typeof dateStr !== 'string') return dateStr;
+
+    // 이미 YYYY-MM-DD 형식이면 그대로 반환
+    if (dateStr.includes('-')) return dateStr;
+
+    // YYYYMMDD 형식이면 변환
+    if (dateStr.length === 8) {
+        const year = dateStr.substring(0, 4);
+        const month = dateStr.substring(4, 6);
+        const day = dateStr.substring(6, 8);
+        return `${year}-${month}-${day}`;
+    }
+
+    return dateStr;
 }
 
 /**
