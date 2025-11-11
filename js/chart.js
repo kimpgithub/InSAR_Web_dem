@@ -184,35 +184,58 @@ function createTimeseriesChart(timeseriesData) {
  * 차트용 날짜 포맷팅
  */
 function formatChartDate(dateString) {
-    if (!dateString) return 'N/A';
+    if (!dateString) {
+        console.warn('formatChartDate: Empty dateString');
+        return 'N/A';
+    }
+
+    // 문자열로 변환
+    const dateStr = String(dateString);
 
     try {
         // 이미 YYYY-MM-DD 형식인 경우
-        if (typeof dateString === 'string' && dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
-            return dateString;
+        if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            return dateStr;
         }
 
-        // YYYYMMDD 형식인 경우
-        if (typeof dateString === 'string' && dateString.match(/^\d{8}$/)) {
-            const year = dateString.substring(0, 4);
-            const month = dateString.substring(4, 6);
-            const day = dateString.substring(6, 8);
+        // YYYYMMDD 형식인 경우 (8자리 숫자)
+        if (dateStr.match(/^\d{8}$/)) {
+            const year = dateStr.substring(0, 4);
+            const month = dateStr.substring(4, 6);
+            const day = dateStr.substring(6, 8);
             return `${year}-${month}-${day}`;
         }
 
+        // ISO 8601 형식인 경우 (YYYY-MM-DDTHH:MM:SS)
+        if (dateStr.includes('T')) {
+            return dateStr.split('T')[0];
+        }
+
         // Date 객체로 변환 시도
-        const date = new Date(dateString);
+        const date = new Date(dateStr);
+
+        // Invalid date 체크
         if (isNaN(date.getTime())) {
-            return dateString;
+            console.warn('formatChartDate: Invalid date:', dateStr);
+            return dateStr;
         }
 
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+
+        const result = `${year}-${month}-${day}`;
+
+        // NaN 체크
+        if (result.includes('NaN')) {
+            console.error('formatChartDate: NaN in result:', result, 'from:', dateStr);
+            return dateStr;
+        }
+
+        return result;
     } catch (e) {
-        console.error('날짜 포맷 오류:', dateString, e);
-        return dateString;
+        console.error('formatChartDate 오류:', dateStr, e);
+        return String(dateStr);
     }
 }
 
