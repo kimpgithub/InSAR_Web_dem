@@ -60,7 +60,7 @@ function createSentinelItem(item, index) {
                     ℹ️
                 </button>
             </div>
-            <div class="sentinel-date">${formatDate(date)}</div>
+            <div class="sentinel-date">${formatSentinelDate(date)}</div>
             <div class="sentinel-time">${time}</div>
             <div class="sentinel-id">${shortenId(id)}</div>
         </div>
@@ -68,11 +68,14 @@ function createSentinelItem(item, index) {
 }
 
 /**
- * 날짜 포맷팅
+ * 날짜 포맷팅 (Sentinel 사이드바용)
  */
-function formatDate(dateString) {
+function formatSentinelDate(dateString) {
     try {
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            return dateString;
+        }
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
@@ -151,7 +154,7 @@ function showSentinelMetadata(index) {
 
     // 날짜/시간
     if (sentinelItem.date) {
-        metadataHtml += createMetadataItem('취득 날짜', formatDate(sentinelItem.date));
+        metadataHtml += createMetadataItem('취득 날짜', formatSentinelDate(sentinelItem.date));
     }
     if (sentinelItem.time) {
         metadataHtml += createMetadataItem('취득 시각', sentinelItem.time);
