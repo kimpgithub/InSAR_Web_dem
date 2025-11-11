@@ -76,15 +76,18 @@ function createInsarMarker(feature, latlng) {
 
 /**
  * 변위량에 따른 색상 매핑
+ * 실제 데이터 범위: -73.7 ~ -10.2 mm/year
  */
 function getDisplacementColor(value) {
-    // RdYlBu 색상 스케일 (빨강-노랑-파랑)
-    if (value < -10) return '#d73027';
-    if (value < -5) return '#fc8d59';
-    if (value < 0) return '#fee090';
-    if (value < 5) return '#e0f3f8';
-    if (value < 10) return '#91bfdb';
-    return '#4575b4';
+    // 침하량에 따른 색상 (심각한 침하 → 약한 침하)
+    // 빨강(심각) → 주황 → 노랑 → 연한 노랑(약함)
+    if (value < -50) return '#8B0000';  // 진한 빨강 (매우 심각)
+    if (value < -40) return '#d73027';  // 빨강 (심각)
+    if (value < -30) return '#fc8d59';  // 주황 (중간-높음)
+    if (value < -20) return '#fdae61';  // 연한 주황 (중간)
+    if (value < -15) return '#fee090';  // 노랑 (낮음-중간)
+    if (value < -10) return '#ffffbf';  // 연한 노랑 (낮음)
+    return '#e0f3f8';  // 연한 파랑 (안정)
 }
 
 /**
