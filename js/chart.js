@@ -13,6 +13,7 @@ function createTimeseriesChart(timeseriesData) {
     }
 
     console.log('📊 차트 생성 중...', timeseriesData.length, '개 데이터 포인트');
+    console.log('첫 번째 데이터 샘플:', timeseriesData[0]);
 
     // 기존 차트 제거
     if (AppState.currentChart) {
@@ -33,16 +34,22 @@ function createTimeseriesChart(timeseriesData) {
 
     timeseriesData.forEach(point => {
         // 날짜
-        labels.push(formatChartDate(point.date));
+        const formattedDate = formatChartDate(point.date);
+        labels.push(formattedDate);
 
-        // 변위
-        displacements.push(point.displacement !== null ? point.displacement : null);
+        // 변위 (숫자로 확실히 변환)
+        const dispValue = parseFloat(point.displacement);
+        displacements.push(isNaN(dispValue) ? null : dispValue);
 
         // 간섭성 (있으면)
-        if (point.coherence !== undefined) {
-            coherences.push(point.coherence);
+        if (point.coherence !== undefined && point.coherence !== null) {
+            const cohValue = parseFloat(point.coherence);
+            coherences.push(isNaN(cohValue) ? null : cohValue);
         }
     });
+
+    console.log('차트 labels:', labels.slice(0, 3));
+    console.log('차트 displacements:', displacements.slice(0, 3));
 
     // 데이터셋 구성
     const datasets = [
@@ -177,13 +184,34 @@ function createTimeseriesChart(timeseriesData) {
  * 차트용 날짜 포맷팅
  */
 function formatChartDate(dateString) {
+    if (!dateString) return 'N/A';
+
     try {
+        // 이미 YYYY-MM-DD 형식인 경우
+        if (typeof dateString === 'string' && dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            return dateString;
+        }
+
+        // YYYYMMDD 형식인 경우
+        if (typeof dateString === 'string' && dateString.match(/^\d{8}$/)) {
+            const year = dateString.substring(0, 4);
+            const month = dateString.substring(4, 6);
+            const day = dateString.substring(6, 8);
+            return `${year}-${month}-${day}`;
+        }
+
+        // Date 객체로 변환 시도
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            return dateString;
+        }
+
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
-    } catch {
+    } catch (e) {
+        console.error('날짜 포맷 오류:', dateString, e);
         return dateString;
     }
 }

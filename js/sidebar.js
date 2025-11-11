@@ -56,6 +56,9 @@ function createSentinelItem(item, index) {
         <div class="sentinel-item" data-index="${index}" data-id="${id}">
             <div class="sentinel-item-header">
                 <span class="sentinel-orbit ${orbitClass}">${orbit}</span>
+                <button class="sentinel-info-btn" onclick="showSentinelMetadata(${index}); event.stopPropagation();" title="메타데이터 보기">
+                    ℹ️
+                </button>
             </div>
             <div class="sentinel-date">${formatDate(date)}</div>
             <div class="sentinel-time">${time}</div>
@@ -125,5 +128,88 @@ function handleSentinelItemClick(itemElement) {
     // 지도에 범위 표시
     if (sentinelItem.bounds) {
         showSentinelBounds(sentinelItem);
+    }
+}
+
+/**
+ * Sentinel-1 메타데이터 표시
+ */
+function showSentinelMetadata(index) {
+    const sentinelItem = AppState.sentinelData[index];
+    if (!sentinelItem) return;
+
+    console.log('📋 메타데이터 표시:', sentinelItem.id);
+
+    // 메타데이터 내용 생성
+    let metadataHtml = `
+        <h3>Sentinel-1 메타데이터</h3>
+        <div class="metadata-content">
+    `;
+
+    // ID
+    metadataHtml += createMetadataItem('Product ID', sentinelItem.id || 'N/A');
+
+    // 날짜/시간
+    if (sentinelItem.date) {
+        metadataHtml += createMetadataItem('취득 날짜', formatDate(sentinelItem.date));
+    }
+    if (sentinelItem.time) {
+        metadataHtml += createMetadataItem('취득 시각', sentinelItem.time);
+    }
+
+    // Mission
+    if (sentinelItem.mission) {
+        metadataHtml += createMetadataItem('위성', sentinelItem.mission);
+    }
+
+    // Orbit
+    if (sentinelItem.orbit_direction) {
+        metadataHtml += createMetadataItem('궤도 방향', sentinelItem.orbit_direction);
+    }
+    if (sentinelItem.orbit_number) {
+        metadataHtml += createMetadataItem('궤도 번호', sentinelItem.orbit_number);
+    }
+
+    // Bounds
+    if (sentinelItem.bounds) {
+        const bounds = sentinelItem.bounds;
+        metadataHtml += createMetadataItem('범위 (위도)', `${bounds.south.toFixed(4)}° ~ ${bounds.north.toFixed(4)}°`);
+        metadataHtml += createMetadataItem('범위 (경도)', `${bounds.west.toFixed(4)}° ~ ${bounds.east.toFixed(4)}°`);
+    }
+
+    metadataHtml += '</div>';
+
+    // 모달에 표시
+    const modalContent = document.getElementById('metadata-modal-content');
+    if (modalContent) {
+        modalContent.innerHTML = metadataHtml;
+    }
+
+    // 모달 열기
+    const modal = document.getElementById('metadata-modal');
+    if (modal) {
+        modal.classList.add('show');
+    }
+}
+
+/**
+ * 메타데이터 아이템 HTML 생성
+ */
+function createMetadataItem(label, value) {
+    return `
+        <div class="metadata-item">
+            <div class="metadata-label">${label}</div>
+            <div class="metadata-value">${value}</div>
+        </div>
+    `;
+}
+
+/**
+ * 메타데이터 모달 닫기
+ */
+function closeMetadataModal() {
+    const modal = document.getElementById('metadata-modal');
+    if (modal) {
+        modal.classList.remove('show');
     }
 }
