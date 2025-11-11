@@ -165,6 +165,11 @@ function calculateInSARStats(geojsonData) {
             velocities.push(props.velocity);
         }
 
+        // 간섭성 (포인트별)
+        if (props.coherence !== undefined && props.coherence !== null) {
+            coherences.push(props.coherence);
+        }
+
         // 시계열
         if (props.timeseries && props.timeseries.length > 0) {
             timePoints = Math.max(timePoints, props.timeseries.length);
@@ -177,9 +182,9 @@ function calculateInSARStats(geojsonData) {
             if (!startDate || minDate < startDate) startDate = minDate;
             if (!endDate || maxDate > endDate) endDate = maxDate;
 
-            // 간섭성
+            // 시계열별 간섭성 (있을 경우 추가)
             props.timeseries.forEach(t => {
-                if (t.coherence !== undefined && t.coherence !== null) {
+                if (t.coherence !== undefined && t.coherence !== null && !props.coherence) {
                     coherences.push(t.coherence);
                 }
             });

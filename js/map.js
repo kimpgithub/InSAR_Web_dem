@@ -91,6 +91,18 @@ function getDisplacementColor(value) {
 }
 
 /**
+ * Coherence 값에 따른 품질 평가
+ */
+function getCoherenceQuality(coherence) {
+    if (coherence >= 0.9) return { label: '매우 높음', color: '#2ecc71' };
+    if (coherence >= 0.8) return { label: '높음', color: '#27ae60' };
+    if (coherence >= 0.7) return { label: '양호', color: '#f39c12' };
+    if (coherence >= 0.6) return { label: '보통', color: '#e67e22' };
+    if (coherence >= 0.5) return { label: '낮음', color: '#e74c3c' };
+    return { label: '매우 낮음', color: '#c0392b' };
+}
+
+/**
  * 각 InSAR 포인트에 이벤트 추가
  */
 function onEachInsarFeature(feature, layer) {
@@ -145,6 +157,18 @@ function createPopupContent(props) {
     // 속도
     if (props.velocity !== undefined) {
         content += `평균 속도: ${props.velocity.toFixed(2)} mm/year<br>`;
+    }
+
+    // 간섭성 (Coherence)
+    if (props.coherence !== undefined) {
+        const coherencePercent = (props.coherence * 100).toFixed(1);
+        const coherenceQuality = getCoherenceQuality(props.coherence);
+        content += `간섭성: ${coherencePercent}% <span style="color: ${coherenceQuality.color};">(${coherenceQuality.label})</span><br>`;
+    }
+
+    // 최종 변위량
+    if (props.disp_final !== undefined) {
+        content += `최종 변위: ${props.disp_final.toFixed(2)} mm<br>`;
     }
 
     // 통계
@@ -210,6 +234,18 @@ function updatePointInfo(props) {
     // 속도
     if (props.velocity !== undefined) {
         html += createInfoItem('평균 속도', `${props.velocity.toFixed(2)} mm/year`);
+    }
+
+    // 간섭성
+    if (props.coherence !== undefined) {
+        const coherencePercent = (props.coherence * 100).toFixed(1);
+        const coherenceQuality = getCoherenceQuality(props.coherence);
+        html += createInfoItem('간섭성', `${coherencePercent}% <span style="color: ${coherenceQuality.color}; font-weight: bold;">(${coherenceQuality.label})</span>`);
+    }
+
+    // 최종 변위량
+    if (props.disp_final !== undefined) {
+        html += createInfoItem('최종 변위', `${props.disp_final.toFixed(2)} mm`);
     }
 
     // 통계
